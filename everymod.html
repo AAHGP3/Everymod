@@ -53,6 +53,7 @@
     letter-spacing:1px; transition: background .2s, transform .1s !important;
   }
   .nav-cta:hover { background: #e0203e !important; transform: scale(1.04); }
+  .nav-user { color: var(--accent3); font-weight:700; font-size:.85rem; }
 
   /* HERO */
   .hero {
@@ -193,6 +194,35 @@
     display:flex; align-items:center; gap:8px;
   }
 
+  /* COMING SOON BANNER */
+  .coming-soon-banner {
+    background: linear-gradient(135deg, rgba(191,90,242,0.15), rgba(255,45,85,0.1));
+    border:1px solid rgba(191,90,242,0.3); border-radius:20px; padding:48px 40px;
+    text-align:center; margin: 60px 24px; position:relative; overflow:hidden;
+  }
+  .coming-soon-banner::before {
+    content:''; position:absolute; top:-50%; right:-50%; width:200%; height:200%;
+    background: conic-gradient(from 180deg at 50% 50%, transparent 0deg, rgba(191,90,242,0.1) 120deg, transparent 240deg);
+    animation: pulse-glow 4s ease-in-out infinite;
+  }
+  @keyframes pulse-glow { 0%, 100% { opacity:0.5; } 50% { opacity:1; } }
+  .coming-soon-banner h2 {
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,5vw,3.5rem);
+    letter-spacing:4px; position:relative; z-index:1; margin-bottom:16px;
+  }
+  .coming-soon-banner h2 span { color:var(--purple); }
+  .coming-soon-banner p { color:var(--muted); font-size:1.1rem; margin:16px auto 28px; max-width:600px; line-height:1.7; position:relative; z-index:1; }
+  .coming-soon-banner p strong { color:var(--text); }
+  .upcoming-games { display:grid; grid-template-columns:repeat(auto-fit, minmax(200px, 1fr)); gap:20px; margin-top:32px; }
+  .upcoming-game {
+    background:rgba(191,90,242,0.08); border:1px solid rgba(191,90,242,0.3); border-radius:12px;
+    padding:20px; text-align:center; transition: all .3s;
+  }
+  .upcoming-game:hover { border-color:rgba(191,90,242,0.6); background:rgba(191,90,242,0.12); transform:translateY(-2px); }
+  .upcoming-game-emoji { font-size:2.5rem; margin-bottom:12px; }
+  .upcoming-game-name { font-weight:700; margin-bottom:6px; }
+  .upcoming-game-date { font-size:.85rem; color:var(--muted); }
+
   /* FEATURES */
   .features-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:24px; }
   .feature-card {
@@ -272,6 +302,8 @@
   }
   .modal-submit:hover { background:#28c050; box-shadow:0 0 50px rgba(48,209,88,0.5); }
   .modal-note { text-align:center; color:var(--muted); font-size:.8rem; margin-top:14px; line-height:1.5; }
+  .logout-btn { background:var(--accent); padding:8px 16px; border-radius:6px; border:none; color:#fff; cursor:pointer; font-weight:700; font-size:.8rem; }
+  .logout-btn:hover { background:#e0203e; }
 
   /* FOOTER */
   footer {
@@ -300,12 +332,15 @@
   @media(max-width:768px) {
     nav { padding:16px 20px; }
     .nav-links { display:none; }
+    .nav-user { display:none; }
     .section { padding:60px 20px; }
     footer { grid-template-columns:1fr 1fr; padding:40px 20px; }
     .footer-bottom { padding:20px; }
     .games-grid { grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); }
     .free-banner { padding:32px 24px; }
     .modal { padding:32px 24px; }
+    .coming-soon-banner { margin:40px 20px; padding:32px 24px; }
+    .upcoming-games { grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); }
   }
   .menu-toggle { display:none; background:none; border:none; color:var(--text); font-size:1.5rem; cursor:pointer; }
   @media(max-width:768px) { .menu-toggle { display:block; } }
@@ -327,7 +362,8 @@
     <a href="#games">Games</a>
     <a href="#features">Features</a>
     <a href="#testimonials">Reviews</a>
-    <a href="#signup" class="nav-cta" onclick="openModal();return false;">Play Free Now</a>
+    <span class="nav-user" id="navUser"></span>
+    <a href="#signup" class="nav-cta" id="navCta" onclick="openModal();return false;">Play Free Now</a>
   </div>
   <button class="menu-toggle" onclick="toggleMobile()">☰</button>
 </nav>
@@ -419,6 +455,44 @@
 </div>
 </div>
 
+<!-- COMING SOON SECTION -->
+<div class="coming-soon-banner reveal" style="max-width:1300px; margin:60px auto; display:block;">
+  <h2>🎮 <span>MORE GAMES COMING SOON!</span></h2>
+  <p>We're constantly adding new games to keep your gaming experience fresh and exciting. <strong>Stay tuned for legendary titles coming to Everymod!</strong></p>
+  <div class="upcoming-games">
+    <div class="upcoming-game reveal">
+      <div class="upcoming-game-emoji">🏔️</div>
+      <div class="upcoming-game-name">Mountain Climb Pro</div>
+      <div class="upcoming-game-date">Coming June 2025</div>
+    </div>
+    <div class="upcoming-game reveal">
+      <div class="upcoming-game-emoji">🌙</div>
+      <div class="upcoming-game-name">Lunar Quest</div>
+      <div class="upcoming-game-date">Coming July 2025</div>
+    </div>
+    <div class="upcoming-game reveal">
+      <div class="upcoming-game-emoji">⚡</div>
+      <div class="upcoming-game-name">Thunder Battle Arena</div>
+      <div class="upcoming-game-date">Coming August 2025</div>
+    </div>
+    <div class="upcoming-game reveal">
+      <div class="upcoming-game-emoji">🦸</div>
+      <div class="upcoming-game-name">Hero Chronicles</div>
+      <div class="upcoming-game-date">Coming September 2025</div>
+    </div>
+    <div class="upcoming-game reveal">
+      <div class="upcoming-game-emoji">💎</div>
+      <div class="upcoming-game-name">Treasure Hunters</div>
+      <div class="upcoming-game-date">Coming October 2025</div>
+    </div>
+    <div class="upcoming-game reveal">
+      <div class="upcoming-game-emoji">🚀</div>
+      <div class="upcoming-game-name">Space Odyssey 2</div>
+      <div class="upcoming-game-date">Coming November 2025</div>
+    </div>
+  </div>
+</div>
+
 <!-- FEATURES -->
 <div id="features" style="background:rgba(255,255,255,0.01);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
 <div class="section">
@@ -451,7 +525,7 @@
     <div class="feature-card reveal">
       <div class="feature-icon">⚡</div>
       <div class="feature-title">Instant Loading</div>
-      <p class="feature-desc">Zero waiting. Every game launches in under 2 seconds. Because your excitement doesn't deserve to sit on a loading screen. Get in. Get playing. Get completely hooked.</p>
+      <p class="feature-desc">Zero waiting. Every game launches instantly. Because your excitement doesn't deserve to sit on a loading screen. Get in. Get playing. Get completely hooked.</p>
     </div>
     <div class="feature-card reveal">
       <div class="feature-icon">💾</div>
@@ -619,15 +693,42 @@ function isUserLoggedIn() {
 function setUserSession(userData) {
   userSession = userData;
   localStorage.setItem('everymodSession', JSON.stringify(userData));
+  updateNavBar();
 }
 
 function loadSessionFromStorage() {
   const stored = localStorage.getItem('everymodSession');
   if (stored) {
-    userSession = JSON.parse(stored);
-    return true;
+    try {
+      userSession = JSON.parse(stored);
+      updateNavBar();
+      return true;
+    } catch(e) {
+      console.log('Session data corrupted');
+      return false;
+    }
   }
   return false;
+}
+
+function updateNavBar() {
+  const navUser = document.getElementById('navUser');
+  const navCta = document.getElementById('navCta');
+  
+  if (isUserLoggedIn()) {
+    navUser.innerHTML = `👤 ${userSession.username} <button class="logout-btn" onclick="logout()">Logout</button>`;
+    navCta.textContent = 'Play Games';
+  } else {
+    navUser.innerHTML = '';
+    navCta.textContent = 'Play Free Now';
+  }
+}
+
+function logout() {
+  userSession = null;
+  localStorage.removeItem('everymodSession');
+  updateNavBar();
+  location.reload();
 }
 
 // Load session when page loads
@@ -789,6 +890,10 @@ renderGames();
 
 // ===== MODAL FUNCTIONS =====
 function openModal() {
+  if (isUserLoggedIn()) {
+    alert(`Welcome back, ${userSession.username}! 🎮 You're ready to play!`);
+    return false;
+  }
   document.getElementById('modalOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   return false;
@@ -840,6 +945,8 @@ function submitModal() {
     
     btn.textContent = '🎮 Create My Free Account'; 
     btn.style.background = ''; 
+    
+    alert(`Great! Your account is ready, ${username}! 🎮 Start playing games now!`);
   }, 2200);
 }
 
@@ -849,9 +956,8 @@ function playGame(gameName) {
     openModal();
     return false;
   }
-  // User is logged in - proceed to game
-  alert(`🎮 Loading ${gameName}...\n\nWelcome back, ${userSession.username}!`);
-  // Add your actual game loading logic here
+  // User is logged in - instant play
+  alert(`🎮 Now Playing: ${gameName}\n\nHaving fun, ${userSession.username}? 🔥\n\n(Coming soon: Full game integration!)`);
 }
 
 function toggleMobile() {
