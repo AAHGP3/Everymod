@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Everymod – 100 Free Games. Forever.</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@400;500;600;700;900&family=Barlow+Condensed:wght@700;900&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #080810;
+    --bg2: #0d0d1a;
+    --card: #111127;
+    --accent: #ff2d55;
+    --accent2: #ff9f0a;
+    --accent3: #30d158;
+    --blue: #0a84ff;
+    --purple: #bf5af2;
+    --text: #f0f0f5;
+    --muted: #8888aa;
+    --border: rgba(255,255,255,0.07);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; overflow-x: hidden; }
+
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--bg); }
+  ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+  /* NAV */
+  nav {
+    position: fixed; top:0; left:0; right:0; z-index:100;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 18px 48px;
+    background: rgba(8,8,16,0.88);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+  }
+  .logo {
+    font-family: 'Bebas Neue', sans-serif; font-size: 2rem; letter-spacing: 4px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .nav-links { display:flex; gap:32px; align-items:center; }
+  .nav-links a {
+    color: var(--muted); text-decoration:none; font-weight:600; font-size:.9rem;
+    letter-spacing:1px; text-transform:uppercase; transition: color .2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: var(--accent); color: #fff !important;
+    padding: 10px 24px; border-radius: 6px; font-weight:700 !important;
+    letter-spacing:1px; transition: background .2s, transform .1s !important;
+  }
+  .nav-cta:hover { background: #e0203e !important; transform: scale(1.04); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh; display: flex; flex-direction:column;
+    align-items:center; justify-content:center; text-align:center;
+    padding: 120px 24px 80px; position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position:absolute; inset:0; z-index:0;
+    background:
+      radial-gradient(ellipse 80% 50% at 50% 0%, rgba(255,45,85,0.18) 0%, transparent 70%),
+      radial-gradient(ellipse 60% 60% at 80% 80%, rgba(10,132,255,0.12) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 50% at 20% 90%, rgba(191,90,242,0.1) 0%, transparent 60%);
+  }
+  .hero-grid {
+    position:absolute; inset:0; z-index:0;
+    background-image: linear-gradient(rgba(255,45,85,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(255,45,85,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%);
+  }
+  .hero-badge {
+    background: rgba(255,45,85,0.15); border: 1px solid rgba(255,45,85,0.4);
+    color: var(--accent); font-size:.8rem; font-weight:700; letter-spacing:3px;
+    text-transform:uppercase; padding: 8px 20px; border-radius:100px;
+    margin-bottom:28px; animation: fadeDown .6s ease both;
+  }
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 12vw, 9rem);
+    line-height: .95; letter-spacing: 4px; position:relative; z-index:1;
+    animation: fadeDown .7s ease .1s both;
+  }
+  .hero h1 span {
+    display:block;
+    background: linear-gradient(90deg, var(--accent) 0%, var(--accent2) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  }
+  .hero-sub {
+    font-size: clamp(1.1rem, 2.5vw, 1.4rem); color: var(--muted);
+    max-width: 620px; margin: 24px auto 0; line-height:1.7; font-weight:500;
+    position:relative; z-index:1; animation: fadeDown .7s ease .2s both;
+  }
+  .hero-sub strong { color: var(--text); }
+  .hero-actions {
+    display:flex; gap:16px; margin-top:40px; flex-wrap:wrap; justify-content:center;
+    position:relative; z-index:1; animation: fadeDown .7s ease .3s both;
+  }
+  .btn-primary {
+    background: var(--accent); color: #fff; padding: 16px 40px; border-radius: 8px;
+    font-size:1.1rem; font-weight:700; letter-spacing:1px; text-decoration:none;
+    border:none; cursor:pointer; box-shadow: 0 0 30px rgba(255,45,85,0.4);
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 0 50px rgba(255,45,85,0.6); }
+  .btn-secondary {
+    background: transparent; color: var(--text); padding: 16px 40px; border-radius: 8px;
+    font-size:1.1rem; font-weight:700; letter-spacing:1px; text-decoration:none;
+    border: 1px solid var(--border); cursor:pointer; transition: border-color .2s, background .2s;
+  }
+  .btn-secondary:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+  .hero-stats {
+    display:flex; gap:48px; margin-top:64px; flex-wrap:wrap; justify-content:center;
+    position:relative; z-index:1; animation: fadeDown .7s ease .4s both;
+  }
+  .stat { text-align:center; }
+  .stat-num {
+    font-family:'Bebas Neue', sans-serif; font-size:3rem; letter-spacing:2px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  }
+  .stat-label { color:var(--muted); font-size:.85rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; }
+
+  /* TICKER */
+  .ticker-wrap {
+    overflow:hidden; border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    background: rgba(255,45,85,0.04); padding: 14px 0;
+  }
+  .ticker { display:flex; gap:60px; white-space:nowrap; animation: ticker 30s linear infinite; width: max-content; }
+  .ticker span { font-family:'Barlow Condensed', sans-serif; font-size:1rem; font-weight:700; letter-spacing:3px; text-transform:uppercase; color:var(--muted); }
+  .ticker span.dot { color:var(--accent); }
+  @keyframes ticker { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+  /* SECTION */
+  .section { padding: 100px 24px; max-width:1300px; margin:0 auto; }
+  .section-label { display:inline-block; color:var(--accent); font-size:.75rem; font-weight:700; letter-spacing:4px; text-transform:uppercase; margin-bottom:12px; }
+  .section-title { font-family:'Bebas Neue', sans-serif; font-size: clamp(2.5rem, 6vw, 4.5rem); letter-spacing:3px; line-height:1; }
+  .section-sub { color:var(--muted); font-size:1.1rem; margin-top:16px; max-width:600px; line-height:1.7; }
+  .section-head { margin-bottom:60px; }
+
+  /* GAMES */
+  .games-filter { display:flex; gap:12px; flex-wrap:wrap; margin-bottom:40px; }
+  .filter-btn {
+    padding:8px 20px; border-radius:100px; border:1px solid var(--border);
+    background:transparent; color:var(--muted); font-family:'Barlow',sans-serif;
+    font-size:.85rem; font-weight:600; letter-spacing:1px; text-transform:uppercase;
+    cursor:pointer; transition:all .2s;
+  }
+  .filter-btn.active, .filter-btn:hover { background:var(--accent); border-color:var(--accent); color:#fff; }
+  .games-grid { display:grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap:16px; }
+  .game-card {
+    background: var(--card); border:1px solid var(--border); border-radius:12px;
+    overflow:hidden; cursor:pointer;
+    transition: transform .2s, box-shadow .2s, border-color .2s;
+  }
+  .game-card:hover { transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.5); border-color: rgba(255,45,85,0.3); }
+  .game-thumb {
+    width:100%; aspect-ratio:4/3; display:flex; align-items:center; justify-content:center;
+    font-size:3rem; position:relative;
+  }
+  .game-thumb::after {
+    content:''; position:absolute; inset:0;
+    background: linear-gradient(to bottom, transparent 50%, rgba(0,0,0,0.7) 100%);
+  }
+  .game-badge {
+    position:absolute; top:8px; right:8px; z-index:2;
+    font-size:.65rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    padding:3px 8px; border-radius:4px;
+  }
+  .badge-online { background:var(--blue); color:#fff; }
+  .badge-offline { background:var(--accent3); color:#000; }
+  .badge-hot { background:var(--accent); color:#fff; }
+  .badge-new { background:var(--purple); color:#fff; }
+  .game-info { padding:12px; }
+  .game-name { font-weight:700; font-size:.95rem; margin-bottom:4px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  .game-meta { display:flex; align-items:center; justify-content:space-between; font-size:.75rem; color:var(--muted); }
+  .game-genre { font-weight:600; }
+  .game-rating { color:var(--accent2); font-weight:700; }
+  .play-overlay {
+    position:absolute; inset:0; z-index:5;
+    background:rgba(8,8,16,0.5); backdrop-filter:blur(2px);
+    display:flex; align-items:center; justify-content:center;
+    border-radius:12px; opacity:0; transition:opacity .2s;
+  }
+  .game-card:hover .play-overlay { opacity:1; }
+  .play-btn {
+    background: var(--accent); color:#fff; border:none; cursor:pointer;
+    padding:10px 24px; border-radius:8px; font-family:'Barlow',sans-serif;
+    font-size:.9rem; font-weight:700; letter-spacing:1px;
+    display:flex; align-items:center; gap:8px;
+  }
+
+  /* FEATURES */
+  .features-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(280px, 1fr)); gap:24px; }
+  .feature-card {
+    background:var(--card); border:1px solid var(--border); border-radius:16px;
+    padding:32px; transition:border-color .2s, transform .2s;
+  }
+  .feature-card:hover { border-color:rgba(255,45,85,0.3); transform:translateY(-2px); }
+  .feature-icon { font-size:2.5rem; margin-bottom:20px; }
+  .feature-title { font-family:'Barlow Condensed',sans-serif; font-size:1.4rem; font-weight:700; letter-spacing:1px; margin-bottom:10px; }
+  .feature-desc { color:var(--muted); line-height:1.7; font-size:.95rem; }
+
+  /* FREE BANNER */
+  .free-banner {
+    background: linear-gradient(135deg, rgba(48,209,88,0.1), rgba(10,132,255,0.08));
+    border:1px solid rgba(48,209,88,0.3); border-radius:20px; padding:48px 40px;
+    text-align:center; margin-bottom:40px; position:relative; overflow:hidden;
+  }
+  .free-banner::before {
+    content:''; position:absolute; top:-50%; left:-50%; width:200%; height:200%;
+    background: conic-gradient(from 0deg at 50% 50%, transparent 0deg, rgba(48,209,88,0.05) 60deg, transparent 120deg);
+    animation: spin 8s linear infinite;
+  }
+  @keyframes spin { to { transform:rotate(360deg); } }
+  .free-banner h2 {
+    font-family:'Bebas Neue',sans-serif; font-size:clamp(2rem,5vw,3.5rem);
+    letter-spacing:4px; position:relative; z-index:1;
+  }
+  .free-banner h2 span { color:var(--accent3); }
+  .free-banner p { color:var(--muted); font-size:1.1rem; margin:16px auto 28px; max-width:500px; line-height:1.7; position:relative; z-index:1; }
+  .free-banner p strong { color:var(--text); }
+
+  /* TESTIMONIALS */
+  .testimonials-grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(300px, 1fr)); gap:20px; }
+  .testi { background:var(--card); border:1px solid var(--border); border-radius:16px; padding:28px; }
+  .testi-stars { color:var(--accent2); font-size:1rem; margin-bottom:14px; }
+  .testi-text { color:var(--muted); line-height:1.7; font-size:.95rem; font-style:italic; }
+  .testi-text strong { color:var(--text); font-style:normal; }
+  .testi-author { margin-top:20px; display:flex; align-items:center; gap:12px; }
+  .testi-avatar {
+    width:40px; height:40px; border-radius:50%;
+    background:linear-gradient(135deg,var(--accent),var(--purple));
+    display:flex; align-items:center; justify-content:center; font-weight:700; font-size:.9rem;
+  }
+  .testi-name { font-weight:700; font-size:.9rem; }
+  .testi-handle { color:var(--muted); font-size:.8rem; }
+
+  /* MODAL */
+  .modal-overlay {
+    display:none; position:fixed; inset:0; z-index:1000;
+    background:rgba(0,0,0,0.85); backdrop-filter:blur(10px);
+    align-items:center; justify-content:center; padding:24px;
+  }
+  .modal-overlay.open { display:flex; }
+  .modal {
+    background:var(--card); border:1px solid rgba(48,209,88,0.3); border-radius:24px;
+    padding:48px 40px; max-width:480px; width:100%; position:relative;
+    box-shadow: 0 0 80px rgba(48,209,88,0.15); animation: modalPop .3s ease both;
+  }
+  @keyframes modalPop { from { transform:scale(.9) translateY(20px); opacity:0; } to { transform:scale(1) translateY(0); opacity:1; } }
+  .modal-close { position:absolute; top:16px; right:20px; background:none; border:none; color:var(--muted); font-size:1.5rem; cursor:pointer; transition:color .2s; }
+  .modal-close:hover { color:var(--text); }
+  .modal-title { font-family:'Bebas Neue',sans-serif; font-size:2.2rem; letter-spacing:3px; margin-bottom:8px; }
+  .modal-sub { color:var(--muted); font-size:.95rem; margin-bottom:28px; line-height:1.6; }
+  .modal-field { margin-bottom:16px; }
+  .modal-field label { display:block; font-size:.8rem; font-weight:700; letter-spacing:1px; text-transform:uppercase; color:var(--muted); margin-bottom:6px; }
+  .modal-field input {
+    width:100%; padding:12px 16px; background:rgba(255,255,255,0.05);
+    border:1px solid var(--border); border-radius:8px; color:var(--text);
+    font-family:'Barlow',sans-serif; font-size:1rem; outline:none; transition:border-color .2s;
+  }
+  .modal-field input:focus { border-color:var(--accent3); }
+  .modal-submit {
+    width:100%; padding:16px; margin-top:8px;
+    background:var(--accent3); color:#000; border:none; border-radius:10px; cursor:pointer;
+    font-family:'Barlow',sans-serif; font-size:1.05rem; font-weight:700; letter-spacing:1px; text-transform:uppercase;
+    box-shadow:0 0 30px rgba(48,209,88,0.3); transition:all .2s;
+  }
+  .modal-submit:hover { background:#28c050; box-shadow:0 0 50px rgba(48,209,88,0.5); }
+  .modal-note { text-align:center; color:var(--muted); font-size:.8rem; margin-top:14px; line-height:1.5; }
+
+  /* FOOTER */
+  footer {
+    border-top:1px solid var(--border); padding:60px 48px 40px;
+    max-width:1300px; margin:0 auto;
+    display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px;
+  }
+  .footer-brand .logo { font-size:1.8rem; display:inline-block; margin-bottom:16px; }
+  .footer-brand p { color:var(--muted); font-size:.9rem; line-height:1.7; max-width:260px; }
+  .footer-col h4 { font-family:'Barlow Condensed',sans-serif; font-weight:700; letter-spacing:2px; text-transform:uppercase; font-size:.95rem; margin-bottom:16px; }
+  .footer-col a { display:block; color:var(--muted); font-size:.9rem; text-decoration:none; margin-bottom:10px; transition:color .2s; }
+  .footer-col a:hover { color:var(--text); }
+  .footer-bottom {
+    border-top:1px solid var(--border); padding:24px 48px;
+    max-width:1300px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    color:var(--muted); font-size:.85rem; flex-wrap:wrap; gap:12px;
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeDown { from { opacity:0; transform:translateY(-20px); } to { opacity:1; transform:translateY(0); } }
+  .reveal { opacity:0; transform:translateY(30px); transition: opacity .6s ease, transform .6s ease; }
+  .reveal.visible { opacity:1; transform:translateY(0); }
+
+  /* RESPONSIVE */
+  @media(max-width:768px) {
+    nav { padding:16px 20px; }
+    .nav-links { display:none; }
+    .section { padding:60px 20px; }
+    footer { grid-template-columns:1fr 1fr; padding:40px 20px; }
+    .footer-bottom { padding:20px; }
+    .games-grid { grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); }
+    .free-banner { padding:32px 24px; }
+    .modal { padding:32px 24px; }
+  }
+  .menu-toggle { display:none; background:none; border:none; color:var(--text); font-size:1.5rem; cursor:pointer; }
+  @media(max-width:768px) { .menu-toggle { display:block; } }
+  .mobile-menu {
+    display:none; position:fixed; inset:0; z-index:99;
+    background:var(--bg); padding:80px 32px 32px; flex-direction:column; gap:24px;
+  }
+  .mobile-menu.open { display:flex; }
+  .mobile-menu a { font-family:'Bebas Neue',sans-serif; font-size:2rem; letter-spacing:3px; color:var(--text); text-decoration:none; transition:color .2s; }
+  .mobile-menu a:hover { color:var(--accent); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">EVERYMOD</div>
+  <div class="nav-links">
+    <a href="#games">Games</a>
+    <a href="#features">Features</a>
+    <a href="#testimonials">Reviews</a>
+    <a href="#signup" class="nav-cta" onclick="openModal();return false;">Play Free Now</a>
+  </div>
+  <button class="menu-toggle" onclick="toggleMobile()">☰</button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#games" onclick="toggleMobile()">Games</a>
+  <a href="#features" onclick="toggleMobile()">Features</a>
+  <a href="#testimonials" onclick="toggleMobile()">Reviews</a>
+  <a href="#signup" onclick="openModal();toggleMobile();return false;">🎮 Play Free Now</a>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-badge">🎮 100% Free — No Credit Card. No Catch. Ever.</div>
+  <h1>
+    100 GAMES.<br>
+    <span>ALL FREE.</span>
+  </h1>
+  <p class="hero-sub">
+    Every game you'll ever crave — <strong>online, offline, action, puzzle, strategy, racing, RPG and more.</strong>
+    Completely free. No subscriptions. No paywalls. Just pure, <strong>unstoppable gaming.</strong>
+  </p>
+  <div class="hero-actions">
+    <a href="#signup" class="btn-primary" onclick="openModal();return false;">🚀 Start Playing — It's Free</a>
+    <a href="#games" class="btn-secondary">Browse All 100 Games →</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-num">100</div>
+      <div class="stat-label">Epic Games</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">$0</div>
+      <div class="stat-label">Forever Free</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">1M+</div>
+      <div class="stat-label">Players Hooked</div>
+    </div>
+    <div class="stat">
+      <div class="stat-num">24/7</div>
+      <div class="stat-label">Always On</div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker-wrap">
+  <div class="ticker">
+    <span>⚡ 100 GAMES</span><span class="dot">✦</span>
+    <span>🎮 OFFLINE + ONLINE</span><span class="dot">✦</span>
+    <span>✅ 100% FREE FOREVER</span><span class="dot">✦</span>
+    <span>💀 DANGEROUSLY ADDICTIVE</span><span class="dot">✦</span>
+    <span>🏆 GLOBAL LEADERBOARDS</span><span class="dot">✦</span>
+    <span>🔥 NO PAYWALLS EVER</span><span class="dot">✦</span>
+    <span>⚡ 100 GAMES</span><span class="dot">✦</span>
+    <span>🎮 OFFLINE + ONLINE</span><span class="dot">✦</span>
+    <span>✅ 100% FREE FOREVER</span><span class="dot">✦</span>
+    <span>💀 DANGEROUSLY ADDICTIVE</span><span class="dot">✦</span>
+    <span>🏆 GLOBAL LEADERBOARDS</span><span class="dot">✦</span>
+    <span>🔥 NO PAYWALLS EVER</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- GAMES -->
+<div id="games">
+<div class="section">
+  <div class="section-head reveal">
+    <span class="section-label">The Library</span>
+    <h2 class="section-title">100 GAMES WAITING<br>FOR YOU RIGHT NOW</h2>
+    <p class="section-sub">Every single one free. Every single one crafted to keep you up past midnight. Pick your poison — we have every flavor.</p>
+  </div>
+  <div class="games-filter reveal">
+    <button class="filter-btn active" onclick="filterGames('all',this)">All 100</button>
+    <button class="filter-btn" onclick="filterGames('offline',this)">🟢 Offline</button>
+    <button class="filter-btn" onclick="filterGames('online',this)">🔵 Online</button>
+    <button class="filter-btn" onclick="filterGames('action',this)">⚔️ Action</button>
+    <button class="filter-btn" onclick="filterGames('puzzle',this)">🧩 Puzzle</button>
+    <button class="filter-btn" onclick="filterGames('strategy',this)">🧠 Strategy</button>
+    <button class="filter-btn" onclick="filterGames('rpg',this)">🗡️ RPG</button>
+    <button class="filter-btn" onclick="filterGames('arcade',this)">🕹️ Arcade</button>
+  </div>
+  <div class="games-grid" id="gamesGrid"></div>
+  <div style="text-align:center;margin-top:40px;" class="reveal">
+    <a href="#signup" class="btn-primary" onclick="openModal();return false;" style="display:inline-block;">🎮 Create Free Account & Play All 100</a>
+  </div>
+</div>
+</div>
+
+<!-- FEATURES -->
+<div id="features" style="background:rgba(255,255,255,0.01);border-top:1px solid var(--border);border-bottom:1px solid var(--border);">
+<div class="section">
+  <div class="section-head reveal">
+    <span class="section-label">Why Everymod</span>
+    <h2 class="section-title">BUILT TO KEEP<br>YOU COMING BACK</h2>
+    <p class="section-sub">We didn't build a game store. We built the most addictive free platform on the internet. And we're proud of it.</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card reveal">
+      <div class="feature-icon">📴</div>
+      <div class="feature-title">Play Offline, Anytime</div>
+      <p class="feature-desc">No WiFi? No problem. Our offline games are so deep and addictive you won't even notice the world outside. Perfect for planes, commutes, or completely ignoring people.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🌐</div>
+      <div class="feature-title">Compete Online Globally</div>
+      <p class="feature-desc">Challenge real players from 190+ countries in real-time. Climb leaderboards. Dominate rankings. Feel the rush of beating a stranger on the other side of Earth.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">✅</div>
+      <div class="feature-title">Free. Forever. No Tricks.</div>
+      <p class="feature-desc">No hidden fees. No surprise subscriptions. No "premium" walls blocking the good stuff. Every single game on this platform is yours — completely free, always.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">🏆</div>
+      <div class="feature-title">Achievements & Rewards</div>
+      <p class="feature-desc">Every win earns you something. Every loss teaches you something. Our reward system is scientifically tuned to make "just one more game" completely impossible to resist.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">⚡</div>
+      <div class="feature-title">Instant Loading</div>
+      <p class="feature-desc">Zero waiting. Every game launches in under 2 seconds. Because your excitement doesn't deserve to sit on a loading screen. Get in. Get playing. Get completely hooked.</p>
+    </div>
+    <div class="feature-card reveal">
+      <div class="feature-icon">💾</div>
+      <div class="feature-title">Cloud Save Progress</div>
+      <p class="feature-desc">Your progress follows you everywhere. Switch devices without losing a single point, level, or streak. Your empire travels with you, always ready to grow even bigger.</p>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FREE CTA SECTION -->
+<div id="signup">
+<div class="section">
+  <div class="free-banner reveal">
+    <h2>🎮 <span>100% FREE</span> — ALWAYS</h2>
+    <p>No trials. No tiers. No limits. Sign up in 10 seconds and every single game unlocks <strong>immediately and permanently.</strong> This is gaming the way it was always meant to be — free, open, and absolutely addictive.</p>
+    <a href="#" class="btn-primary" onclick="openModal();return false;" style="display:inline-block;background:var(--accent3);color:#000;box-shadow:0 0 30px rgba(48,209,88,0.4);">Create My Free Account →</a>
+  </div>
+</div>
+</div>
+
+<!-- TESTIMONIALS -->
+<div id="testimonials" style="background:rgba(255,255,255,0.01);border-top:1px solid var(--border);">
+<div class="section">
+  <div class="section-head reveal">
+    <span class="section-label">Real Players</span>
+    <h2 class="section-title">THEY SAID "ONE MORE<br>GAME" FOR 6 HOURS.</h2>
+    <p class="section-sub">Don't take our word for it. Take theirs — after they finished their 47th free game in a row.</p>
+  </div>
+  <div class="testimonials-grid">
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I downloaded Everymod on a Friday afternoon. It is now <strong>Monday morning</strong>. I have no regrets. None. The games are genuinely impossible to put down — and it's all free."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">KJ</div>
+        <div><div class="testi-name">Kyle J.</div><div class="testi-handle">Playing since launch day</div></div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The offline games saved my 14-hour flight. I didn't watch a single movie. <strong>100 games completely free — I genuinely can't believe this is real.</strong> It's unbelievable value."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">SR</div>
+        <div><div class="testi-name">Sara R.</div><div class="testi-handle">Free player, day one</div></div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I signed up 'just to see'. Within an hour I had cancelled three other gaming apps. <strong>Everything here is free, better, and way more addictive.</strong> I'm not going anywhere."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">AM</div>
+        <div><div class="testi-name">Ali M.</div><div class="testi-handle">Active player, 8 months</div></div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"The online multiplayer is <strong>ridiculously competitive.</strong> I've climbed to rank #204 globally. Free platform, world-class competition. This has become my daily routine and I'm proud of it."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">DL</div>
+        <div><div class="testi-name">Dan L.</div><div class="testi-handle">Global Rank #204</div></div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"My kids and I compete every evening on the leaderboards. It's <strong>brought our whole family together.</strong> Free, fun, and completely safe. Everymod is the best thing on the internet."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">PO</div>
+        <div><div class="testi-name">Priya O.</div><div class="testi-handle">Family player</div></div>
+      </div>
+    </div>
+    <div class="testi reveal">
+      <div class="testi-stars">★★★★★</div>
+      <p class="testi-text">"I work night shifts. These games are the <strong>only thing keeping me sane</strong> on breaks. The offline mode works perfectly even underground. Free and flawless. Game changer."</p>
+      <div class="testi-author">
+        <div class="testi-avatar">TC</div>
+        <div><div class="testi-name">Tom C.</div><div class="testi-handle">Night shift warrior</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- FINAL CTA -->
+<div style="padding:100px 24px;text-align:center;position:relative;overflow:hidden;">
+  <div style="position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 50%,rgba(48,209,88,0.1) 0%,transparent 70%);"></div>
+  <div style="position:relative;z-index:1;">
+    <div class="section-label" style="display:block;margin-bottom:16px;">Your Move</div>
+    <h2 class="section-title reveal" style="font-size:clamp(3rem,8vw,6rem);">100 FREE GAMES.<br>ZERO EXCUSES.</h2>
+    <p class="reveal" style="color:var(--muted);font-size:1.2rem;margin:20px auto 36px;max-width:500px;line-height:1.7;">
+      Every second you wait is a second someone else is climbing the leaderboard you could own. <strong style="color:var(--text);">It's free. It's instant. It's waiting for you right now.</strong>
+    </p>
+    <a href="#" class="btn-primary reveal" onclick="openModal();return false;" style="display:inline-block;font-size:1.2rem;padding:20px 56px;background:var(--accent3);color:#000;box-shadow:0 0 40px rgba(48,209,88,0.4);">
+      🎮 Play All 100 Games — Free
+    </a>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="logo">EVERYMOD</div>
+    <p>100 games. All free. Forever. The only gaming platform you'll ever need.</p>
+  </div>
+  <div class="footer-col">
+    <h4>Games</h4>
+    <a href="#">Offline Games</a>
+    <a href="#">Online Multiplayer</a>
+    <a href="#">Action</a>
+    <a href="#">Puzzle</a>
+    <a href="#">Strategy</a>
+    <a href="#">RPG</a>
+  </div>
+  <div class="footer-col">
+    <h4>Platform</h4>
+    <a href="#">Free Sign Up</a>
+    <a href="#">Leaderboards</a>
+    <a href="#">New Releases</a>
+    <a href="#">Community</a>
+  </div>
+  <div class="footer-col">
+    <h4>Company</h4>
+    <a href="#">About Everymod</a>
+    <a href="#">Privacy Policy</a>
+    <a href="#">Terms of Service</a>
+    <a href="#">Support</a>
+    <a href="#">Contact</a>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2025 Everymod. All rights reserved.</span>
+  <span>100 games. $0. No tricks. Ever.</span>
+</div>
+
+<!-- SIGNUP MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeModal()">✕</button>
+    <div class="modal-title">JOIN FREE. PLAY ALL 100.</div>
+    <p class="modal-sub">10 seconds to sign up. Instant access to every game on the platform. No payment. No trial. No catch — just 100 games waiting for you.</p>
+    <div class="modal-field">
+      <label>Your Name</label>
+      <input type="text" placeholder="Enter your name" id="inputName">
+    </div>
+    <div class="modal-field">
+      <label>Email Address</label>
+      <input type="email" placeholder="Enter your email" id="inputEmail">
+    </div>
+    <div class="modal-field">
+      <label>Choose a Username</label>
+      <input type="text" placeholder="e.g. ShadowKing99" id="inputUsername">
+    </div>
+    <button class="modal-submit" onclick="submitModal()">🎮 Create My Free Account</button>
+    <p class="modal-note">✅ Free forever · No credit card · No hidden fees · Instant access to all 100 games</p>
+  </div>
+</div>
+
+<script>
+// ===== SESSION MANAGEMENT =====
+let userSession = null;
+
+function isUserLoggedIn() {
+  return userSession !== null;
+}
+
+function setUserSession(userData) {
+  userSession = userData;
+  localStorage.setItem('everymodSession', JSON.stringify(userData));
+}
+
+function loadSessionFromStorage() {
+  const stored = localStorage.getItem('everymodSession');
+  if (stored) {
+    userSession = JSON.parse(stored);
+    return true;
+  }
+  return false;
+}
+
+// Load session when page loads
+loadSessionFromStorage();
+
+// ===== GAMES DATA =====
+const GAMES = [
+  { name:"Shadow Strike", type:"offline", genre:"action", emoji:"⚔️", rating:"4.9", badge:"hot" },
+  { name:"NeuroGrid", type:"offline", genre:"puzzle", emoji:"🧠", rating:"4.8", badge:"" },
+  { name:"Warlord Rising", type:"online", genre:"strategy", emoji:"🏰", rating:"4.9", badge:"hot" },
+  { name:"Drift Kings", type:"online", genre:"racing", emoji:"🏎️", rating:"4.7", badge:"new" },
+  { name:"Pixel Dungeon X", type:"offline", genre:"rpg", emoji:"🗡️", rating:"4.8", badge:"" },
+  { name:"Neon Blitz", type:"online", genre:"arcade", emoji:"🕹️", rating:"4.6", badge:"hot" },
+  { name:"Chrono Rivals", type:"online", genre:"strategy", emoji:"⏳", rating:"4.9", badge:"" },
+  { name:"Dead Space 0", type:"offline", genre:"action", emoji:"💀", rating:"4.8", badge:"" },
+  { name:"Tower Fall", type:"offline", genre:"strategy", emoji:"🗼", rating:"4.7", badge:"" },
+  { name:"MindMaze Pro", type:"offline", genre:"puzzle", emoji:"🌀", rating:"4.9", badge:"new" },
+  { name:"Ocean Raid", type:"online", genre:"action", emoji:"🌊", rating:"4.6", badge:"" },
+  { name:"Galaxy Wars", type:"online", genre:"strategy", emoji:"🌌", rating:"4.8", badge:"hot" },
+  { name:"RunX Infinite", type:"offline", genre:"arcade", emoji:"🏃", rating:"4.7", badge:"" },
+  { name:"Forge & Fire", type:"offline", genre:"rpg", emoji:"🔥", rating:"4.8", badge:"" },
+  { name:"Arena Clash", type:"online", genre:"action", emoji:"🥊", rating:"4.9", badge:"hot" },
+  { name:"Cube Matrix", type:"offline", genre:"puzzle", emoji:"🔲", rating:"4.6", badge:"" },
+  { name:"Hex Empire", type:"online", genre:"strategy", emoji:"🎯", rating:"4.7", badge:"" },
+  { name:"Void Runner", type:"offline", genre:"arcade", emoji:"🚀", rating:"4.8", badge:"new" },
+  { name:"Blood Throne", type:"online", genre:"rpg", emoji:"👑", rating:"4.9", badge:"hot" },
+  { name:"Turbo Road", type:"online", genre:"racing", emoji:"🏁", rating:"4.7", badge:"" },
+  { name:"Iron Titan", type:"offline", genre:"action", emoji:"🤖", rating:"4.8", badge:"" },
+  { name:"Crystal Quest", type:"offline", genre:"puzzle", emoji:"💎", rating:"4.7", badge:"" },
+  { name:"Storm Force", type:"online", genre:"strategy", emoji:"⛈️", rating:"4.9", badge:"new" },
+  { name:"Pixel Racer", type:"offline", genre:"racing", emoji:"🎮", rating:"4.5", badge:"" },
+  { name:"Soul Blade", type:"offline", genre:"rpg", emoji:"⚡", rating:"4.8", badge:"hot" },
+  { name:"Hyper Smash", type:"online", genre:"arcade", emoji:"💥", rating:"4.7", badge:"" },
+  { name:"Fortress X", type:"online", genre:"strategy", emoji:"🛡️", rating:"4.9", badge:"" },
+  { name:"Stealth Ops", type:"offline", genre:"action", emoji:"🕵️", rating:"4.8", badge:"" },
+  { name:"Logic Bomb", type:"offline", genre:"puzzle", emoji:"💣", rating:"4.6", badge:"" },
+  { name:"Mech Wars", type:"online", genre:"action", emoji:"⚙️", rating:"4.9", badge:"hot" },
+  { name:"Drift Circuit", type:"online", genre:"racing", emoji:"🌀", rating:"4.7", badge:"" },
+  { name:"Arcane Realm", type:"offline", genre:"rpg", emoji:"🧙", rating:"4.8", badge:"new" },
+  { name:"Bullet Heaven", type:"offline", genre:"arcade", emoji:"🌠", rating:"4.9", badge:"hot" },
+  { name:"City Siege", type:"online", genre:"strategy", emoji:"🌆", rating:"4.7", badge:"" },
+  { name:"Viper's Den", type:"offline", genre:"action", emoji:"🐍", rating:"4.6", badge:"" },
+  { name:"Stack Master", type:"offline", genre:"puzzle", emoji:"📦", rating:"4.7", badge:"" },
+  { name:"Naval Strike", type:"online", genre:"strategy", emoji:"⚓", rating:"4.8", badge:"" },
+  { name:"Gravity Shift", type:"offline", genre:"arcade", emoji:"🌍", rating:"4.9", badge:"new" },
+  { name:"Dark Empire", type:"online", genre:"rpg", emoji:"🌑", rating:"4.8", badge:"hot" },
+  { name:"Speed Demon", type:"online", genre:"racing", emoji:"😈", rating:"4.7", badge:"" },
+  { name:"Zombie Rush", type:"offline", genre:"action", emoji:"🧟", rating:"4.8", badge:"" },
+  { name:"Quantum Flip", type:"offline", genre:"puzzle", emoji:"🔄", rating:"4.6", badge:"" },
+  { name:"Space Command", type:"online", genre:"strategy", emoji:"🛸", rating:"4.9", badge:"hot" },
+  { name:"Jump Hero", type:"offline", genre:"arcade", emoji:"🦸", rating:"4.7", badge:"" },
+  { name:"Dragon Age Z", type:"offline", genre:"rpg", emoji:"🐉", rating:"4.9", badge:"new" },
+  { name:"Blade Runner", type:"online", genre:"action", emoji:"🔪", rating:"4.8", badge:"" },
+  { name:"Lazer Grid", type:"offline", genre:"puzzle", emoji:"🔴", rating:"4.6", badge:"" },
+  { name:"Kingdom Fall", type:"online", genre:"strategy", emoji:"🏯", rating:"4.8", badge:"" },
+  { name:"Ultra Drift", type:"online", genre:"racing", emoji:"💨", rating:"4.7", badge:"hot" },
+  { name:"Shadow RPG", type:"offline", genre:"rpg", emoji:"🌙", rating:"4.8", badge:"" },
+  { name:"Retro Blaster", type:"offline", genre:"arcade", emoji:"👾", rating:"4.9", badge:"hot" },
+  { name:"Warzone Now", type:"online", genre:"action", emoji:"💣", rating:"4.9", badge:"" },
+  { name:"Echo Maze", type:"offline", genre:"puzzle", emoji:"🔊", rating:"4.7", badge:"new" },
+  { name:"Titan Fleet", type:"online", genre:"strategy", emoji:"🚢", rating:"4.8", badge:"" },
+  { name:"Astro Sprint", type:"offline", genre:"arcade", emoji:"☄️", rating:"4.6", badge:"" },
+  { name:"Legend Born", type:"offline", genre:"rpg", emoji:"🌟", rating:"4.9", badge:"hot" },
+  { name:"Frag Arena", type:"online", genre:"action", emoji:"🎯", rating:"4.8", badge:"" },
+  { name:"Brain Storm", type:"offline", genre:"puzzle", emoji:"⛈️", rating:"4.7", badge:"" },
+  { name:"Empire Total", type:"online", genre:"strategy", emoji:"🌏", rating:"4.9", badge:"new" },
+  { name:"Nitro Race", type:"online", genre:"racing", emoji:"🔥", rating:"4.8", badge:"hot" },
+  { name:"Ancient Blade", type:"offline", genre:"rpg", emoji:"🏛️", rating:"4.7", badge:"" },
+  { name:"Hyper Jump", type:"offline", genre:"arcade", emoji:"⬆️", rating:"4.6", badge:"" },
+  { name:"Cyber Assault", type:"online", genre:"action", emoji:"🤖", rating:"4.9", badge:"" },
+  { name:"Zen Tiles", type:"offline", genre:"puzzle", emoji:"🀄", rating:"4.8", badge:"" },
+  { name:"War Machine", type:"online", genre:"strategy", emoji:"🦾", rating:"4.7", badge:"" },
+  { name:"Dash & Crash", type:"offline", genre:"arcade", emoji:"💥", rating:"4.8", badge:"new" },
+  { name:"Myth Seeker", type:"offline", genre:"rpg", emoji:"🗺️", rating:"4.9", badge:"hot" },
+  { name:"Kill Switch", type:"online", genre:"action", emoji:"☠️", rating:"4.8", badge:"" },
+  { name:"Lock & Load", type:"online", genre:"action", emoji:"🔫", rating:"4.7", badge:"" },
+  { name:"Mind Warp", type:"offline", genre:"puzzle", emoji:"🌈", rating:"4.6", badge:"" },
+  { name:"Stronghold Z", type:"online", genre:"strategy", emoji:"🏰", rating:"4.9", badge:"" },
+  { name:"Road Fury", type:"online", genre:"racing", emoji:"🚗", rating:"4.8", badge:"hot" },
+  { name:"Frost Blade", type:"offline", genre:"rpg", emoji:"❄️", rating:"4.7", badge:"" },
+  { name:"Pixel Panic", type:"offline", genre:"arcade", emoji:"😱", rating:"4.6", badge:"" },
+  { name:"Storm Break", type:"online", genre:"action", emoji:"🌪️", rating:"4.9", badge:"new" },
+  { name:"Block Logic", type:"offline", genre:"puzzle", emoji:"🧱", rating:"4.7", badge:"" },
+  { name:"Iron Throne", type:"online", genre:"strategy", emoji:"⚔️", rating:"4.8", badge:"hot" },
+  { name:"Turbo Kart", type:"offline", genre:"racing", emoji:"🛺", rating:"4.6", badge:"" },
+  { name:"Chaos Born", type:"offline", genre:"rpg", emoji:"🌊", rating:"4.8", badge:"" },
+  { name:"Bounce Wars", type:"offline", genre:"arcade", emoji:"🔴", rating:"4.7", badge:"" },
+  { name:"Death March", type:"online", genre:"action", emoji:"💀", rating:"4.9", badge:"" },
+  { name:"Color Bomb", type:"offline", genre:"puzzle", emoji:"🎨", rating:"4.6", badge:"new" },
+  { name:"Conquest Now", type:"online", genre:"strategy", emoji:"🌐", rating:"4.8", badge:"" },
+  { name:"Hyper Car", type:"online", genre:"racing", emoji:"🏎️", rating:"4.7", badge:"hot" },
+  { name:"Storm Knight", type:"offline", genre:"rpg", emoji:"⚡", rating:"4.9", badge:"" },
+  { name:"Line Runner", type:"offline", genre:"arcade", emoji:"➡️", rating:"4.5", badge:"" },
+  { name:"Siege Mode", type:"online", genre:"strategy", emoji:"🎪", rating:"4.8", badge:"" },
+  { name:"Nano Strike", type:"online", genre:"action", emoji:"⚛️", rating:"4.7", badge:"" },
+  { name:"Twist & Turn", type:"offline", genre:"puzzle", emoji:"🔀", rating:"4.6", badge:"new" },
+  { name:"Sun & Steel", type:"offline", genre:"rpg", emoji:"☀️", rating:"4.8", badge:"hot" },
+  { name:"Sky Racer", type:"online", genre:"racing", emoji:"✈️", rating:"4.7", badge:"" },
+  { name:"Panic Run", type:"offline", genre:"arcade", emoji:"🏃", rating:"4.9", badge:"" },
+  { name:"Lava Strike", type:"online", genre:"action", emoji:"🌋", rating:"4.8", badge:"" },
+  { name:"Deep Maze", type:"offline", genre:"puzzle", emoji:"🌊", rating:"4.7", badge:"" },
+  { name:"Final Empire", type:"online", genre:"strategy", emoji:"🏆", rating:"4.9", badge:"hot" },
+  { name:"Ghost Rider X", type:"online", genre:"racing", emoji:"👻", rating:"4.8", badge:"" },
+  { name:"Realm Master", type:"offline", genre:"rpg", emoji:"👁️", rating:"4.9", badge:"new" },
+  { name:"Turbo Tap", type:"offline", genre:"arcade", emoji:"👆", rating:"4.6", badge:"" },
+];
+
+const BADGE_COLORS = { hot:"badge-hot", new:"badge-new" };
+
+function renderGames(filter='all') {
+  const grid = document.getElementById('gamesGrid');
+  const filtered = filter === 'all' ? GAMES : GAMES.filter(g => g.type === filter || g.genre === filter);
+  grid.innerHTML = filtered.map((g,i) => {
+    const typeClass = g.type === 'online' ? 'badge-online' : 'badge-offline';
+    const badgeHtml = g.badge
+      ? `<span class="game-badge ${BADGE_COLORS[g.badge]}">${g.badge === 'hot' ? '🔥 HOT' : '✨ NEW'}</span>`
+      : `<span class="game-badge ${typeClass}">${g.type.toUpperCase()}</span>`;
+    return `
+      <div class="game-card" onclick="playGame('${g.name}'); return false;">
+        <div class="game-thumb" style="background:${getGradient(i)}">
+          ${g.emoji}
+          ${badgeHtml}
+        </div>
+        <div class="game-info">
+          <div class="game-name">${g.name}</div>
+          <div class="game-meta">
+            <span class="game-genre">${g.genre}</span>
+            <span class="game-rating">★ ${g.rating}</span>
+          </div>
+        </div>
+        <div class="play-overlay">
+          <button class="play-btn">▶ Play Free</button>
+        </div>
+      </div>`;
+  }).join('');
+}
+
+function getGradient(i) {
+  const g = [
+    'linear-gradient(135deg,#1a0a2e,#4a1060)',
+    'linear-gradient(135deg,#0a1a2e,#103060)',
+    'linear-gradient(135deg,#2e0a0a,#601010)',
+    'linear-gradient(135deg,#0a2e1a,#106030)',
+    'linear-gradient(135deg,#1a2e0a,#306010)',
+    'linear-gradient(135deg,#2e2a0a,#605010)',
+    'linear-gradient(135deg,#0a2a2e,#105060)',
+    'linear-gradient(135deg,#2e0a1a,#601030)',
+  ];
+  return g[i % g.length];
+}
+
+function filterGames(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderGames(filter);
+}
+
+renderGames();
+
+// ===== MODAL FUNCTIONS =====
+function openModal() {
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  return false;
+}
+
+function closeModal() {
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function submitModal() {
+  const nameInput = document.getElementById('inputName');
+  const emailInput = document.getElementById('inputEmail');
+  const usernameInput = document.getElementById('inputUsername');
+  
+  const name = nameInput.value.trim();
+  const email = emailInput.value.trim();
+  const username = usernameInput.value.trim();
+  
+  // Basic validation
+  if (!name || !email || !username) {
+    alert('Please fill in all fields');
+    return;
+  }
+  
+  // Create user session
+  setUserSession({
+    name: name,
+    email: email,
+    username: username,
+    joinedAt: new Date().toISOString()
+  });
+  
+  const btn = document.querySelector('.modal-submit');
+  btn.textContent = "✅ Welcome to Everymod! Let's Play!";
+  btn.style.background = '#28c050';
+  
+  setTimeout(() => { 
+    closeModal(); 
+    
+    // Clear input fields
+    nameInput.value = '';
+    emailInput.value = '';
+    usernameInput.value = '';
+    
+    btn.textContent = '🎮 Create My Free Account'; 
+    btn.style.background = ''; 
+  }, 2200);
+}
+
+// ===== PLAY GAME FUNCTION =====
+function playGame(gameName) {
+  if (!isUserLoggedIn()) {
+    openModal();
+    return false;
+  }
+  // User is logged in - proceed to game
+  alert(`🎮 Loading ${gameName}...\n\nWelcome back, ${userSession.username}!`);
+  // Add your actual game loading logic here
+}
+
+function toggleMobile() {
+  document.getElementById('mobileMenu').classList.toggle('open');
+}
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+}, { threshold: 0.1 });
+document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
